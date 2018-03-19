@@ -32,6 +32,7 @@ function M:update(dt)
 
 	--理想移动
 	local desired_velocity = self:getDesiredVelocity(cc.p(seek_x, seek_y), cc.p(target_x, target_y))
+	desired_velocity = cc.pNormalize(desired_velocity)
 	desired_velocity.x = desired_velocity.x * self.max_velocity.x
 	desired_velocity.y = desired_velocity.y * self.max_velocity.y
 
@@ -49,6 +50,12 @@ function M:update(dt)
 	positiony = positiony + self.velocity.y
 	self._seeker:setPosition(positionx, positiony)
 
+	local angle = math.asin(self.velocity.y / cc.pGetLength(self.velocity)) * 180 / 3.14
+	angle = -angle
+	if self.velocity.x < 0 then
+		angle = 180 - angle
+	end
+	self._seeker:setRotation(angle)
 end
 
 return M

@@ -15,7 +15,7 @@ end
 
 function M:getDesiredVelocity(start_pos, end_pos)
 	local desired_velocity = cc.p(end_pos.x - start_pos.x, end_pos.y - start_pos.y)
-	desired_velocity = cc.pNormalize(desired_velocity)
+	
 	return desired_velocity
 end
 
